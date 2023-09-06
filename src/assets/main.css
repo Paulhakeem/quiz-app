@@ -30,7 +30,7 @@
         background-color: aliceblue;
     }
     .header{
-        font-size: 0.2rem;
+        font-size: 0.4rem;
     }
  }
  @media (max-width: 1280px) { 
@@ -39,6 +39,6 @@
         background-color: aliceblue;
     }
     .header{
-        font-size: 0.3rem;
+        font-size: 0.4rem;
     }
  }

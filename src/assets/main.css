@@ -8,11 +8,20 @@
         max-width:80%;
         background-color: aliceblue;
     }
+    
  }
 @media (max-width: 768px) { 
     #body {
         max-width:80%;
         background-color: aliceblue;
+    }
+    .circle{
+        width: 14vh;
+        height: 10vh;
+        border-radius: 100%;
+    }
+    .quiz{
+        padding-top: 24px;
     }
  }
  @media (max-width: 1024px) { 
@@ -20,10 +29,16 @@
         max-width:90%;
         background-color: aliceblue;
     }
+    .header{
+        font-size: 0.5rem;
+    }
  }
  @media (max-width: 1280px) { 
     #body {
         max-width:98%;
         background-color: aliceblue;
+    }
+    .header{
+        font-size: 2rem;
     }
  }

@@ -5,7 +5,12 @@ export default {
     "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'university': '#db418b',
+        'showmax': '#548697'
+      }
+    },
   },
   plugins: [],
 }

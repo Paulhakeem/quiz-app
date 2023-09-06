@@ -77,7 +77,6 @@ onMounted(()=> {
                   ]"
                   >{{ quiz.category }} </span
                 >
-                
                 <span
                   v-if="selected"
                   class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
@@ -85,7 +84,6 @@ onMounted(()=> {
                 <img src="../assets/check.svg" alt="">
                 </span>
               </li>
-              
             </ListboxOption>
           </ListboxOptions>
         </transition>
@@ -93,7 +91,17 @@ onMounted(()=> {
     </Listbox> 
     
   </div>
+   <main class="pt-8 mb-4">
+    
 
+ Questions and answers here
+
+
+
+
+
+
+   </main>
   <footer class="pt-6">
     <div class="justify-between flex ml-4 mr-4">
       <button class="uppercase bg-university p-5 w-36 text-white rounded-md">submit</button>

@@ -5,15 +5,15 @@
 
 @media (max-width: 640px) { 
     #body {
-        max-width:80%;
-        background-color: aliceblue;
+        width:10%;
+      
     }
     
  }
 @media (max-width: 768px) { 
     #body {
-        max-width:80%;
-        background-color: aliceblue;
+        width: 90%;
+        margin-top: 2rem;
     }
     .circle{
         width: 14vh;
@@ -26,19 +26,11 @@
  }
  @media (max-width: 1024px) { 
     #body {
-        max-width:90%;
-        background-color: aliceblue;
+        width:90%;
+        margin-top: 8rem;
     }
     .header{
         font-size: 1.5rem;
     }
  }
- @media (max-width: 1280px) { 
-    #body {
-        max-width:98%;
-        background-color: aliceblue;
-    }
-    .header{
-        font-size: 1.5rem;
-    }
- }
+ 

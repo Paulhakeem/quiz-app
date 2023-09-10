@@ -1,12 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import {
-  Listbox,
-  ListboxLabel,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from "@headlessui/vue";
+
 
 let answer = [];
 let questionCounter = ref(0);
@@ -62,7 +56,7 @@ onMounted(() => {
 <template>
   <div
     id="body"
-    class="max-w-md m-auto justify-center text-center border border-1 border-university rounded-md h-screen mb-7 mt-12 select-none"
+    class="max-w-md m-auto justify-center text-center rounded-md h-screen mb-7 mt-12 select-none"
   >
     <div class="flex gap-8 justify-between">
       <h1

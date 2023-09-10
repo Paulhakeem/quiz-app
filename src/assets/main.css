@@ -32,5 +32,8 @@
     .header{
         font-size: 1.5rem;
     }
+    .button {
+        justify-content: space-between;
+    }
  }
  

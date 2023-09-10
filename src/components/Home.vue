@@ -14,7 +14,7 @@ const question = [
   {
     question: "What is your favourite programming language?",
     answer: 1,
-    choices: ["Ruby", "java", "python"],
+    choices: ["JavaScript", "java", "python"],
   },
   {
     question: "What is your favourite javascript framework?",
@@ -117,8 +117,8 @@ onMounted(() => {
       </div>
     </main>
 
-    <footer class="mx-6 mb-4">
-      <div class="justify-between flex ml-4 mr-4">
+    <footer class=" mb-4">
+      <div class="justify-between flex button">
         <button class="uppercase bg-university p-5 w-36 text-white rounded-md">
           submit
         </button>

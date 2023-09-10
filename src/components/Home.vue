@@ -16,22 +16,22 @@ const question = [
   {
     question: "What is your favourite programming language?",
     answer: 1,
-    choices: ["JavaScript", "java", "python"],
+    choices: ["JavaScript", "java", "python", "C++"],
   },
   {
     question: "What is your favourite javascript framework?",
     answer: 1,
-    choices: ["React", "Vue", "Angular"],
+    choices: ["React", "Vue", "Angular", "Selvent"],
   },
   {
     question: "What is your favourite animal?",
     answer: 1,
-    choices: ["Horse", "Dog", "Cat"],
+    choices: ["Horse", "Dog", "Cat", "Goat"],
   },
   {
     question: "What type of drugs you use?",
     answer: 1,
-    choices: ["weed", "Cocain", "alcohol"],
+    choices: ["weed", "Cocain", "alcohol", "Shisha"],
   },
 ];
 

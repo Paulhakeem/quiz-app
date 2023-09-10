@@ -2,7 +2,7 @@
 
 <template>
   <div
-    class="w-screen h-screen absolute z-30 bg-black bg-opacity-50 flex justify-center items-center right-0 top-0"
+    class="w-screen h-full absolute z-30 bg-black bg-opacity-50 flex justify-center items-center right-0 top-0"
   >
     <div class="bg-university p-4 text-center h-44">
       <p class="font-bold text-white text-2xl">Well done</p>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-
+let scores = ref(0)
 let answer = [];
 let questionCounter = ref(0);
 const currentQuestion = ref({
@@ -18,18 +18,23 @@ const question = [
   },
   {
     question: "What is your favourite javascript framework?",
-    answer: 1,
+    answer: 2,
     choices: ["React", "Vue", "Angular"],
   },
   {
     question: "What is your favourite animal?",
-    answer: 1,
+    answer: 2,
     choices: ["Horse", "Dog", "Cat"],
   },
 ];
 
-const quizStart = () => {
-  currentQuestion.value = question[questionCounter.value];
+const loadQuestions = () => {
+  if (question.length > questionCounter.value) {
+    currentQuestion.value = question[questionCounter.value];
+    questionCounter.value++;
+  } else {
+    console.log("Thank you for participating");
+  }
 };
 
 const correctAnswer = (element) => {
@@ -39,17 +44,22 @@ const correctAnswer = (element) => {
 };
 
 const keyEvent = (choice, answers) => {
-  const chosenAnswer = answer;
-  const choiceID = answers++;
-  if (currentQuestion.value.answer == choiceID) {
-    console.log("you right");
-  } else {
-    console.log("you are wrong");
-  }
+  setTimeout(() => {
+    const chosenAnswer = answer;
+    const choiceID = answers++;
+    if (currentQuestion.value.answer == choiceID) {
+      console.log("you right");
+      scores.value =+ 10
+    } else {
+      console.log("you are wrong");
+    }
+
+    loadQuestions();
+  }, 1000);
 };
 
 onMounted(() => {
-  quizStart();
+  loadQuestions();
 });
 </script>
 
@@ -65,9 +75,13 @@ onMounted(() => {
         Welcome to our Quiz app
       </h1>
       <div
-        class="circle bg-university w-14 h-14 rounded-full mt-2 cursor-pointer mr-3"
+        class="circle bg-university w-16 h-16 rounded-full mt-2 cursor-pointer mr-3"
       >
-        <p class="quiz text-white pt-3 font-semibold">Scores</p>
+        <div class="pt-2">
+        <p class="quiz text-white font-semibold">Scores</p>
+        <p class="quiz text-white font-semibold">{{ scores }}%</p>
+        </div>
+        
       </div>
     </div>
 
@@ -113,11 +127,11 @@ onMounted(() => {
 
       <div class="mt-5 mb-5">
         <div class="h-1 w-12 bg-university rounded-full mx-auto"></div>
-        <p class="font-bold text-gray-700">1/10</p>
+        <p class="font-bold text-gray-700">{{ questionCounter }}/ {{ question.length }} </p>
       </div>
     </main>
 
-    <footer class=" mb-4">
+    <footer class="mb-4">
       <div class="justify-between flex button">
         <button class="uppercase bg-university p-5 w-36 text-white rounded-md">
           submit

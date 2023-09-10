@@ -1,112 +1,137 @@
 <script setup>
-import { ref, onMounted} from 'vue';
-import { Listbox,
+import { ref, onMounted } from "vue";
+import {
+  Listbox,
   ListboxLabel,
   ListboxButton,
   ListboxOptions,
-  ListboxOption, } from '@headlessui/vue'
+  ListboxOption,
+} from "@headlessui/vue";
 
+let answer = [];
+let questionCounter = ref(0);
+const currentQuestion = ref({
+  question: "",
+  answer: 1,
+  choices: [],
+});
 
-const question = ref([]);
-const newQuestion = ref('')
+const question = [
+  {
+    question: "What is your favourite programming language?",
+    answer: 1,
+    choices: ["Ruby", "java", "python"],
+  },
+  {
+    question: "What is your favourite javascript framework?",
+    answer: 1,
+    choices: ["React", "Vue", "Angular"],
+  },
+  {
+    question: "What is your favourite animal?",
+    answer: 1,
+    choices: ["Horse", "Dog", "Cat"],
+  },
+];
 
-onMounted(()=> {
-    fetch(`https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple`)
-      .then((response) => response.json())
-      .then((data) => {
-       console.log(data)
-       question.value = data.results
-      })
-})
+const quizStart = () => {
+  currentQuestion.value = question[questionCounter.value];
+};
 
+const correctAnswer = (element) => {
+  if (element) {
+    answer.push(element);
+  }
+};
 
+const keyEvent = (choice, answers) => {
+  const chosenAnswer = answer;
+  const choiceID = answers++;
+  if (currentQuestion.value.answer == choiceID) {
+    console.log("you right");
+  } else {
+    console.log("you are wrong");
+  }
+};
 
+onMounted(() => {
+  quizStart();
+});
 </script>
 
 <template>
-  <div id="body" class="max-w-md m-auto justify-center text-center
-   border border-1 border-university rounded-md h-screen mt-12 select-none">
-
-   <div class="flex gap-8 justify-between">
-    <h1 class="header text-xl text-university font-semibold pt-4 text-left pl-4">Welcome to our Quiz app</h1>
-    <div class="circle bg-university w-14 h-14 rounded-full mt-2 cursor-pointer mr-3">
-      <p class="quiz text-white pt-3 font-semibold">Scores</p>
-    </div>
-   </div>
-  
-
-    <div class="w-72 pl-4 pt-5">
-    <Listbox>
-      <div class="relative mt-1">
-        <ListboxButton
-          class="relative w-full cursor-default rounded-lg bg-black py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
-        >
-          <span class="block truncate text-white">Choose your category</span>
-          <span
-            class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2"
-          >
-            <img src="../assets/down.png" alt="">
-          </span>
-        </ListboxButton>
-      
-        <transition
-          leave-active-class="transition duration-100 ease-in"
-          leave-from-class="opacity-100"
-          leave-to-class="opacity-0"
-        >
-          <ListboxOptions
-            class="absolute text-left mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-          >
-            <ListboxOption
-              v-slot="{ active, selected }"
-              v-for="quiz in question" 
-              :key="question.id"
-              :value="quiz"
-              as="template"
-            >
-              <li
-                :class="[
-                  active ? 'bg-university text-white' : 'text-gray-900',
-                  'relative cursor-default select-none py-2 pl-10 pr-4',
-                ]"
-              >
-                <span 
-                  :class="[
-                    selected ? 'font-medium' : 'font-normal',
-                    'block truncate',
-                  ]"
-                  >{{ quiz.category }} </span
-                >
-                <span
-                  v-if="selected"
-                  class="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600"
-                >
-                <img src="../assets/check.svg" alt="">
-                </span>
-              </li>
-            </ListboxOption>
-          </ListboxOptions>
-        </transition>
+  <div
+    id="body"
+    class="max-w-md m-auto justify-center text-center border border-1 border-university rounded-md h-screen mb-7 mt-12 select-none"
+  >
+    <div class="flex gap-8 justify-between">
+      <h1
+        class="header text-xl text-university font-semibold pt-4 text-left pl-4"
+      >
+        Welcome to our Quiz app
+      </h1>
+      <div
+        class="circle bg-university w-14 h-14 rounded-full mt-2 cursor-pointer mr-3"
+      >
+        <p class="quiz text-white pt-3 font-semibold">Scores</p>
       </div>
-    </Listbox> 
-    
-  </div>
-   <main class="pt-8 mb-4">
-    
-
- Questions and answers here
-
-
-
-
-
-
-   </main>
-  <footer class="pt-6">
-    <div class="justify-between flex ml-4 mr-4">
-      <button class="uppercase bg-university p-5 w-36 text-white rounded-md">submit</button>
-      <button class="uppercase bg-university p-5 w-36 text-white rounded-md">next</button>
     </div>
-  </footer>
-   </div>
+
+    <!-- quiz container -->
+    <main>
+      <!-- question container -->
+      <div class="shadow-md rounded-md mx-4 my-4">
+        <div class="rounded-lg bg-gray-150 neumorph-1">
+          <div class="p-3 text-start text-gray-700">
+            {{ currentQuestion.question }}
+          </div>
+        </div>
+      </div>
+
+      <!-- answer container -->
+      <div
+        :ref="correctAnswer"
+        @click="keyEvent(choice, answers)"
+        v-for="(choice, answers) in currentQuestion.choices"
+        :key="answers.id"
+        class="mx-4 my-12 space-y-8"
+      >
+        <div
+          class="neumorph-1 rounded-md border border-1 border-university p-2 hover:bg-university"
+        >
+          <div
+            class="text-university text-start pl-2 flex divide-x-2 hover:text-white"
+          >
+            <div
+              class="bg-university rounded-lg w-10 h-10 text-center text-white pt-2"
+            >
+              {{ answers }}
+            </div>
+
+            <p class="text-center px-4 pt-2 font-semibold hover:text-white">
+              {{ choice }}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- progress -->
+
+      <div class="mt-5 mb-5">
+        <div class="h-1 w-12 bg-university rounded-full mx-auto"></div>
+        <p class="font-bold text-gray-700">1/10</p>
+      </div>
+    </main>
+
+    <footer class="mx-6 mb-4">
+      <div class="justify-between flex ml-4 mr-4">
+        <button class="uppercase bg-university p-5 w-36 text-white rounded-md">
+          submit
+        </button>
+        <button class="uppercase bg-university p-5 w-36 text-white rounded-md">
+          next
+        </button>
+      </div>
+    </footer>
+  </div>
 </template>

@@ -17,7 +17,7 @@ body{
 @media (max-width: 768px) { 
     #body {
         width: 90%;
-        margin-top: 2rem;
+        margin-top: 0.5rem;
     }
     .circle{
         width: 14vh;
@@ -31,7 +31,7 @@ body{
  @media (max-width: 1024px) { 
     #body {
         width:90%;
-        margin-top: 7rem;
+        margin-top: 3rem;
        
     }
     .header{

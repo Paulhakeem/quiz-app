@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import ScoreMarks from "./scoreMarks.vue";
 
 let scores = ref(0)
 let answer = [];
 let questionCounter = ref(0);
+let endOfQuiz = ref(false)
 const currentQuestion = ref({
   question: "",
   answer: 1,
@@ -18,13 +20,18 @@ const question = [
   },
   {
     question: "What is your favourite javascript framework?",
-    answer: 2,
+    answer: 1,
     choices: ["React", "Vue", "Angular"],
   },
   {
     question: "What is your favourite animal?",
-    answer: 2,
+    answer: 1,
     choices: ["Horse", "Dog", "Cat"],
+  },
+  {
+    question: "What type of drugs you use?",
+    answer: 1,
+    choices: ["weed", "Cocain", "alcohol"],
   },
 ];
 
@@ -34,6 +41,7 @@ const loadQuestions = () => {
     questionCounter.value++;
   } else {
     console.log("Thank you for participating");
+    endOfQuiz.value = true
   }
 };
 
@@ -66,8 +74,11 @@ onMounted(() => {
 <template>
   <div
     id="body"
-    class="max-w-md m-auto justify-center text-center rounded-md h-screen mb-7 mt-12 select-none"
+    class="max-w-md m-auto justify-center text-center rounded-md mb-4 mt-12 select-none"
   >
+  <!-- percentege score -->
+  <ScoreMarks v-if="endOfQuiz"/>
+
     <div class="flex gap-8 justify-between">
       <h1
         class="header text-xl text-university font-semibold pt-4 text-left pl-4"
@@ -84,7 +95,7 @@ onMounted(() => {
         
       </div>
     </div>
-
+    
     <!-- quiz container -->
     <main>
       <!-- question container -->
@@ -132,14 +143,7 @@ onMounted(() => {
     </main>
 
     <footer class="mb-4">
-      <div class="justify-between flex button">
-        <button class="uppercase bg-university p-5 w-36 text-white rounded-md">
-          submit
-        </button>
-        <button class="uppercase bg-university p-5 w-36 text-white rounded-md">
-          next
-        </button>
-      </div>
+     
     </footer>
   </div>
 </template>

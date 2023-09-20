@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        'university': '#db418b',
+        'university': '#0a67be',
         'showmax': '#548697'
       }
     },

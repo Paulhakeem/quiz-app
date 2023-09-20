@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import {RouterLink} from 'vue-router'
+</script>
 
 <template>
   <div
@@ -9,11 +11,13 @@
       <p class="my-4 font-bold text-3xl">100% score</p>
 
       <div class="flex gap-4">
+        <RouterLink to="/">
         <button
           class="rounded-full p-2 w-28 font-semibold border-2 text-white cursor-pointer hover:bg-white hover:text-university"
         >
           Done
         </button>
+      </RouterLink>
         <button
           class="rounded-full p-2 w-28 border-2 text-white cursor-pointer font-semibold hover:bg-white hover:text-university"
         >

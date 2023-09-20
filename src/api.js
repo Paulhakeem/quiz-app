@@ -1,3 +1,3 @@
 export default {
-    apiKey: 'https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple'
+    apiKey: 'https://opentdb.com/api.php?amount=10&category=18'
 }

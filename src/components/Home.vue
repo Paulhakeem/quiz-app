@@ -2,38 +2,18 @@
 import { ref, onMounted } from "vue";
 import ScoreMarks from "./scoreMarks.vue";
 
-let scores = ref(0)
+let scores = ref(0);
 let answer = [];
 let questionCounter = ref(0);
-let endOfQuiz = ref(false)
+let endOfQuiz = ref(false);
 const currentQuestion = ref({
   question: "",
   answer: 1,
   choices: [],
 });
 
-const question = [
-  {
-    question: "What is your favourite programming language?",
-    answer: 1,
-    choices: ["JavaScript", "java", "python", "C++"],
-  },
-  {
-    question: "What is your favourite javascript framework?",
-    answer: 1,
-    choices: ["React", "Vue", "Angular", "Selvent"],
-  },
-  {
-    question: "What is your favourite animal?",
-    answer: 1,
-    choices: ["Horse", "Dog", "Cat", "Goat"],
-  },
-  {
-    question: "What type of drugs you use?",
-    answer: 1,
-    choices: ["weed", "Cocain", "alcohol", "Shisha"],
-  },
-];
+const question = [];
+console.log(question);
 
 const loadQuestions = () => {
   if (question.length > questionCounter.value) {
@@ -41,7 +21,7 @@ const loadQuestions = () => {
     questionCounter.value++;
   } else {
     console.log("Thank you for participating");
-    endOfQuiz.value = true
+    endOfQuiz.value = true;
   }
 };
 
@@ -57,7 +37,7 @@ const keyEvent = (choice, answers) => {
     const choiceID = answers++;
     if (currentQuestion.value.answer == choiceID) {
       console.log("you right");
-      scores.value =+ 10
+      scores.value = +10;
     } else {
       console.log("you are wrong");
     }
@@ -66,8 +46,38 @@ const keyEvent = (choice, answers) => {
   }, 1000);
 };
 
+const fetchQuestion = async () => {
+  fetch("https://opentdb.com/api.php?amount=10&category=18")
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      const newQuestion = data?.results.map((serverQuiz) => {
+        const arrangeQuiz = {
+          question: serverQuiz?.question,
+          choices: "",
+          answer: "",
+        };
+
+        const choices = serverQuiz?.incorrect_answers;
+
+        arrangeQuiz.answer = Math.floor(Math.random() * 4 + 1);
+
+        choices.splice(arrangeQuiz.answer - 1, 0, serverQuiz?.correct_answer);
+
+        arrangeQuiz.choices = choices;
+
+        return arrangeQuiz;
+      });
+      question.value = newQuestion;
+      // console.log(newQuestion)
+      loadQuestions();
+    });
+    
+};
+
 onMounted(() => {
-  loadQuestions();
+  fetchQuestion();
 });
 </script>
 
@@ -76,8 +86,8 @@ onMounted(() => {
     id="body"
     class="max-w-md m-auto justify-center text-center rounded-md mb-4 mt-12 select-none"
   >
-  <!-- percentege score -->
-  <ScoreMarks v-if="endOfQuiz"/>
+    <!-- percentege score -->
+    <ScoreMarks v-if="endOfQuiz" />
 
     <div class="flex gap-8 justify-between">
       <h1
@@ -89,13 +99,12 @@ onMounted(() => {
         class="circle bg-university w-16 h-16 rounded-full mt-2 cursor-pointer mr-3"
       >
         <div class="pt-2">
-        <p class="quiz text-white font-semibold">Scores</p>
-        <p class="quiz text-white font-semibold">{{ scores }}%</p>
+          <p class="quiz text-white font-semibold">Scores</p>
+          <p class="quiz text-white font-semibold">{{ scores }}%</p>
         </div>
-        
       </div>
     </div>
-    
+
     <!-- quiz container -->
     <main>
       <!-- question container -->
@@ -138,12 +147,12 @@ onMounted(() => {
 
       <div class="mt-5 mb-5">
         <div class="h-1 w-12 bg-university rounded-full mx-auto"></div>
-        <p class="font-bold text-gray-700">{{ questionCounter }}/ {{ question.length }} </p>
+        <p class="font-bold text-gray-700">
+          {{ questionCounter }}/ {{ question.length }}
+        </p>
       </div>
     </main>
 
-    <footer class="mb-4">
-     
-    </footer>
+    <footer class="mb-4"></footer>
   </div>
 </template>
